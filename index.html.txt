@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>دليل غذائي لمرضى الكلى</title>
+  <style>
+    body { font-family: Arial, sans-serif; direction: rtl; text-align: right; padding: 20px; }
+    input { width: 80%; padding: 12px; margin: 20px 0; font-size: 18px; }
+    .result { margin: 20px 0; padding: 15px; border-radius: 8px; font-size: 18px; }
+    .safe { background-color: #c8f7c5; }
+    .caution { background-color: #fff3b0; }
+    .avoid { background-color: #f7c5c5; }
+  </style>
+</head>
+<body>
+  <h2>🔍 ابحث عن طعام لتعرف محتواه (بوتاسيوم، فوسفور، صوديوم)</h2>
+  <input type="text" id="search" placeholder="اكتب اسم الطعام...">
+  <div id="output"></div>
+
+  <script>
+    const foods = {
+      "موز": { K: "مرتفع", P: "منخفض", Na: "منخفض", status: "avoid" },
+      "تفاح": { K: "منخفض", P: "منخفض", Na: "منخفض", status: "safe" },
+      "عنب": { K: "منخفض", P: "منخفض", Na: "منخفض", status: "safe" },
+      "فراولة": { K: "منخفض", P: "منخفض", Na: "منخفض", status: "safe" },
+      "برتقال": { K: "مرتفع", P: "منخفض", Na: "منخفض", status: "avoid" },
+      "رمان": { K: "مرتفع", P: "متوسط", Na: "منخفض", status: "caution" },
+      "تمر": { K: "مرتفع", P: "مرتفع", Na: "منخفض", status: "avoid" },
+      "بطاطس": { K: "مرتفع", P: "متوسط", Na: "منخفض", status: "avoid" },
+      "طماطم": { K: "مرتفع", P: "منخفض", Na: "منخفض", status: "caution" },
+      "خيار": { K: "منخفض", P: "منخفض", Na: "منخفض", status: "safe" },
+      "كوسة": { K: "منخفض", P: "منخفض", Na: "منخفض", status: "safe" },
+      "جزر": { K: "متوسط", P: "منخفض", Na: "منخفض", status: "caution" },
+      "سبانخ": { K: "مرتفع", P: "متوسط", Na: "منخفض", status: "avoid" },
+      "بامية": { K: "متوسط", P: "منخفض", Na: "منخفض", status: "caution" },
+      "دجاج": { K: "متوسط", P: "متوسط", Na: "منخفض", status: "safe" },
+      "سمك": { K: "متوسط", P: "متوسط", Na: "منخفض", status: "safe" },
+      "لحم أحمر": { K: "متوسط", P: "مرتفع", Na: "منخفض", status: "caution" },
+      "بيض": { K: "منخفض", P: "متوسط", Na: "منخفض", status: "safe" },
+      "خبز أبيض": { K: "منخفض", P: "منخفض", Na: "منخفض", status: "safe" },
+      "خبز أسمر": { K: "منخفض", P: "أعلى من الأبيض", Na: "منخفض", status: "caution" },
+      "أرز أبيض": { K: "منخفض", P: "منخفض", Na: "منخفض", status: "safe" },
+      "عدس": { K: "مرتفع", P: "مرتفع", Na: "منخفض", status: "avoid" },
+      "فول": { K: "مرتفع", P: "مرتفع", Na: "منخفض", status: "avoid" },
+      "لبن": { K: "متوسط", P: "متوسط", Na: "متوسط", status: "caution" },
+      "جبن أصفر": { K: "منخفض", P: "مرتفع", Na: "مرتفع", status: "avoid" },
+      "جبن أبيض": { K: "منخفض", P: "منخفض", Na: "متوسط", status: "caution" },
+      "مشروبات غازية داكنة": { K: "منخفض", P: "مرتفع (مضاف)", Na: "مرتفع", status: "avoid" },
+      "شيبس": { K: "منخفض", P: "منخفض", Na: "مرتفع", status: "avoid" }
+    };
+
+    document.getElementById("search").addEventListener("input", function() {
+      const query = this.value.trim();
+      const output = document.getElementById("output");
+      if (foods[query]) {
+        const f = foods[query];
+        output.innerHTML = `
+          <div class="result ${f.status}">
+            <b>${query}</b><br>
+            بوتاسيوم: ${f.K}<br>
+            فوسفور: ${f.P}<br>
+            صوديوم: ${f.Na}
+          </div>`;
+      } else {
+        output.innerHTML = "<p>⚠️ لم يتم العثور على هذا الطعام في القائمة.</p>";
+      }
+    });
+  </script>
+</body>
+</html>
